@@ -1,19 +1,29 @@
 export const Cart = () => {
-  const items = []
+  let items = []
 
   const getTotal = () => {
     return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
   }
 
   const add = (item) => {
-    items.push(item)
+    const find = items.find(p => p.product.title === item.product.title)
+    if (!find) {   
+      items = [...items, item]
+    }
   }
 
-  const remove = (product) => {}
+  const remove = (productArg) => {
+    items = items.filter(prd => prd.product.title !== productArg.title)
+  }
 
   const summary = () => {}
 
-  const checkout = () => {}
+  const checkout = () => {
+    return {
+      total: getTotal(),
+      items
+    }
+  }
 
   return {
     items,
